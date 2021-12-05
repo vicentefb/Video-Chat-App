@@ -27,7 +27,7 @@ const ContextProvider = ({ children }) => {
         myVideo.current.srcObject = currentStream;
       });
     // retrieveing the id from the backend
-    socket.on("me", (id) => setImmediate(id));
+    socket.on("me", (id) => setMe(id));
 
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
