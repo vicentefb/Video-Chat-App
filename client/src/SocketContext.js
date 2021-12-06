@@ -21,7 +21,7 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     // use video and audio from user's browser
     navigator.mediaDevices
-      .getUserMedia({ vide: true, audio: true })
+      .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
