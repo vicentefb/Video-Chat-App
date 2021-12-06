@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
+const App = () => {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
@@ -47,6 +47,6 @@ export default function App() {
       </Options>
     </div>
   );
-}
+};
 
-//export default App;
+export default App;
