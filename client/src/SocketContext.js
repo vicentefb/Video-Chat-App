@@ -24,7 +24,9 @@ const ContextProvider = ({ children }) => {
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
+        // take our video ref and set it to the currentStream so that we can play the video
         myVideo.current.srcObject = currentStream;
+        myVideo.current.muted = true;
       });
     // retrieveing the id from the backend
     socket.on("me", (id) => setMe(id));
@@ -36,6 +38,8 @@ const ContextProvider = ({ children }) => {
 
   const answerCall = () => {
     setCallAccepted(true);
+    // for the user we create a peer server using the values that we have
+    // we do this to establish the connection with the unique id between two users
     const peer = new Peer({ initiator: false, trickle: false, stream });
     peer.on("signal", (data) => {
       socket.emit("answercall", { signal: data, to: call.from });

@@ -17,17 +17,27 @@ app.get("/", (req, res) => {
   res.send("Server is running.");
 });
 
+// this will be run every time someone connects to our website
 io.on("connection", (socket) => {
+  // set events to listen to from that socket that we conected from
+
+  // we are sending the socket id through the 'me' event to the front end
   socket.emit("me", socket.id);
 
+  // In the front end we will have 3 refs for these 3 events
+  // connectionRef, myVideo and userVideo
+
+  // disconnect event
   socket.on("disconnect", () => {
     socket.broadcast.emit("callended");
   });
 
+  // calluser event
   socket.on("calluser", ({ userToCall, signalData, from, name }) => {
     io.to(userToCall).emit("calluser", { signal: signalData, from, name });
   });
 
+  // answercall event
   socket.on("answercall", (data) => {
     io.to(data.to).emit("callaccepted", data.signal);
   });
